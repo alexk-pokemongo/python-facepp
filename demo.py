@@ -38,7 +38,6 @@ for (idx, face_) in enumerate(img.faces):
   w =face_rect['width']
   h =face_rect['height']
     
-  canvas.draw_rec(xy=[x0,y0,x0+w,y0+h],outline=outline_color)
-  import pdb;pdb.set_trace()
+  canvas.rectangle(xy=[x0,y0,x0+w,y0+h],outline=outline_color,width=2)
   
 image.save('test.png')
