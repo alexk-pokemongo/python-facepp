@@ -22,8 +22,10 @@ for (idx, face_) in enumerate(img.faces):
   print('-', ''.join(['[', str(idx), ']']))
   print('face', '=', face_)
   gender=face_.gender['value']
+  age=face_.age['value']
   print('gender', '=', face_.gender['value'])
   print('age', '=', face_.age['value'])
+  
   print('face_rectangle', '=', json.dumps(face_.face_rectangle, indent=4))  
   face_rect = face_.face_rectangle
   if(gender=='Female'):
@@ -39,5 +41,6 @@ for (idx, face_) in enumerate(img.faces):
   h =face_rect['height']
     
   canvas.rectangle(xy=[x0,y0,x0+w,y0+h],outline=outline_color,width=2)
+  canvas.text(xy=[x0-10,y0-10],text='age={}'.format(age))
   
 image.save('test.png')
