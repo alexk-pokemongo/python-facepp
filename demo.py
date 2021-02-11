@@ -27,12 +27,18 @@ for (idx, face_) in enumerate(img.faces):
   print('face_rectangle', '=', json.dumps(face_.face_rectangle, indent=4))  
   face_rect = face_.face_rectangle
   if(gender=='Female'):
-    color=(153,50,204)
+    outline_color=(153,50,204)
     pass
   elif(gender=='Male'):
-    color=(0,0,255)
+    outline_color=(0,255,0)
     pass
     
-  canvas.
+  x0=face_rect['left']
+  y0=face_rect['top']
+  w =face_rect['width']
+  h =face_rect['height']
+    
+  canvas.draw_rec(xy=[x0,y0,x0+w,y0+h],outline=outline_color)
   import pdb;pdb.set_trace()
   
+image.save('test.png')
