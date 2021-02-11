@@ -41,6 +41,6 @@ for (idx, face_) in enumerate(img.faces):
   h =face_rect['height']
     
   canvas.rectangle(xy=[x0,y0,x0+w,y0+h],outline=outline_color,width=2)
-  canvas.text(xy=[x0-10,y0-10],text='age={}'.format(age))
+  canvas.text(xy=[x0-10,y0-10],text='age={}'.format(age),fill=outline_color)
   
 image.save('test.png')
