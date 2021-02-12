@@ -3,13 +3,17 @@ from facepplib import FacePP
 from PIL import Image, ImageDraw
 
 import json
+import os
 
 api_key = 'o7rhF6OZEJDMYwWrAPjhT-fZ2g3iu1bP'
 api_secret = 'MazgWDEXoDC05CyJhvxHjXOratdvhi-H'
 
 app = FacePP(api_key=api_key, api_secret=api_secret)
 
-img_file = '/home/alexk/dataset/yuka_group.jpg'
+img_file='/home/alexk/dataset/balabas.jpg'
+img_filename = os.path.split(img_file)[1]
+img_filename_noext = os.path.splitext(img_filename)[0]
+
 img = app.image.get(image_file=img_file,return_attributes=['age'])
 print('image', '=', img)
 print('faces_count', '=', len(img.faces))
@@ -41,6 +45,8 @@ for (idx, face_) in enumerate(img.faces):
   h =face_rect['height']
     
   canvas.rectangle(xy=[x0,y0,x0+w,y0+h],outline=outline_color,width=2)
-  canvas.text(xy=[x0-10,y0-10],text='age={}'.format(age),fill=outline_color)
-  
-image.save('test.png')
+  canvas.text(xy=[x0-10,y0-10],text='age={}'.format(age))
+
+out_file=img_filename_noext+'_out.png'
+
+image.save(out_file)
