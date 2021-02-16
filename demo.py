@@ -4,14 +4,13 @@ from PIL import Image, ImageDraw
 import os
 
 import json
-import os
+
 
 api_key = 'o7rhF6OZEJDMYwWrAPjhT-fZ2g3iu1bP'
 api_secret = 'MazgWDEXoDC05CyJhvxHjXOratdvhi-H'
 
 app = FacePP(api_key=api_key, api_secret=api_secret)
 
-<<<<<<< HEAD
 img_file = '/home/alexk/dataset/omon_masked.jpg'
 
 fname_only = os.path.basename(img_file)
