@@ -4,17 +4,20 @@ from PIL import Image, ImageDraw
 import os
 
 import json
+import os
 
 api_key = 'o7rhF6OZEJDMYwWrAPjhT-fZ2g3iu1bP'
 api_secret = 'MazgWDEXoDC05CyJhvxHjXOratdvhi-H'
 
 app = FacePP(api_key=api_key, api_secret=api_secret)
 
+<<<<<<< HEAD
 img_file = '/home/alexk/dataset/omon_masked.jpg'
 
 fname_only = os.path.basename(img_file)
 fname_noext = os.path.splitext(fname_only)[0]
 img = app.image.get(image_file=img_file,return_attributes=['age'],calculate_all=1)
+
 print('image', '=', img)
 print('faces_count', '=', len(img.faces))
 
@@ -45,6 +48,10 @@ for (idx, face_) in enumerate(img.faces):
   h =face_rect['height']
     
   canvas.rectangle(xy=[x0,y0,x0+w,y0+h],outline=outline_color,width=2)
-  canvas.text(xy=[x0-10,y0-10],text='age={}'.format(age),fill=outline_color)
+
+  canvas.text(xy=[x0-10,y0-10],text='age={}'.format(age))
   
-image.save(fname_noext+'_out.png')
+
+out_file=img_filename_noext+'_out.png'
+
+image.save(out_file)
