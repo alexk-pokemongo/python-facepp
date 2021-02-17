@@ -14,7 +14,7 @@ dataset_dir = '/dataset/samples/combined/'
 plt.figure(figsize=(max_num_samples+1, num_persons))
 
 images=[]
-colors=[]
+colors=[(0,0,255),(0,255,0),(255,0,0),(]
 
 for p in range(num_persons):
   images.append([])
@@ -22,9 +22,11 @@ for p in range(num_persons):
 files = glob2.glob(os.path.join(dataset_dir, "*.jpg")) 
 
 for f in files:
-  base=os.path.basename(
-  pass
-
+  base=os.path.basename(f)
+  for word in base.split():
+    if(word.isdigit()):
+      person_id = int(word)
+  #blah
 
 
 for person in range(num_persons):
