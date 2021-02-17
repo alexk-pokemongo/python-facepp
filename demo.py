@@ -11,7 +11,7 @@ api_secret = 'MazgWDEXoDC05CyJhvxHjXOratdvhi-H'
 
 app = FacePP(api_key=api_key, api_secret=api_secret)
 
-img_file = '/home/alexk/dataset/omon_masked.jpg'
+img_file = '/dataset/omon_masked.jpg'
 
 fname_only = os.path.basename(img_file)
 fname_noext = os.path.splitext(fname_only)[0]
