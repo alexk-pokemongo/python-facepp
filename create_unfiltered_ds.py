@@ -10,8 +10,8 @@ from PIL import Image, ImageDraw
 api_key = 'o7rhF6OZEJDMYwWrAPjhT-fZ2g3iu1bP'
 api_secret = 'MazgWDEXoDC05CyJhvxHjXOratdvhi-H'
 
-unfiltered_dir='/home/alexk/dataset/unfiltered/'
-combined_dir='/home/alexk/dataset/samples/combined/'
+unfiltered_dir='/dataset/unfiltered/'
+combined_dir='/dataset/samples/try2/'
 
 files = glob2.glob(os.path.join(unfiltered_dir, "*.jpg"))
 
@@ -24,6 +24,8 @@ for f in files:
   pil_image = pil_image.convert('RGB')
   
   img = app.image.get(image_file=f)
+  basename = os.path.basename(f)
+  name_noext = os.path.splitext(basename)[0]
   print('faces found', '=', len(img.faces))
   for (img_idx, face_) in enumerate(img.faces):
     face_rect = face_.face_rectangle
@@ -34,7 +36,10 @@ for f in files:
     w =face_rect['width']
     h =face_rect['height']
     imcrop = pil_image.crop((x0,y0,x0+w,y0+h))
-    out_fname="sample_%d_%d.jpg" %(file_idx,img_idx)
+    
+     
+    
+    out_fname=("sample_%d_%d_"+name_noext + ".jpg") %(file_idx,img_idx)
     out_path = os.path.join(combined_dir,out_fname)
     imcrop.save(out_path)
     pass 
