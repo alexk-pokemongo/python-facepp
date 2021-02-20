@@ -11,10 +11,14 @@ num_persons = 6
 max_num_samples = 8
 dataset_dir = '/dataset/samples/combined/'
 
-plt.figure(figsize=(max_num_samples+1, num_persons))
+max_samples = max_num_samples+1
+
+plt.figure(figsize=(max_samples, num_persons))
 
 images=[]
-colors=[(0,0,255),(0,255,0),(255,0,0),(]
+colors=[(0,0,255),(0,255,0),(255,0,0),(0,255,255),(255,0,255),(255,255,0)]
+
+colorsize = (64,64)
 
 for p in range(num_persons):
   images.append([])
@@ -28,9 +32,20 @@ for f in files:
       person_id = int(word)
   #blah
 
-
+idx=0
 for person in range(num_persons):
   for sample in range(max_num_samples):
     #display appropriate image
+    plt.subplot(num_persons, max_samples, idx + 1)
+    plt.imshow(images[person][sample])
+    idx += 1
     pass
+  imcolor = colors[person]
+  color_img = Image.new(mode='RGB', size=colorsize, color=imcolor)
+  plt.subplot(num_persons, max_samples, idx + 1)
+  plt.imshow(color_img)
+  idx += 1
   #display color
+  
+#save
+plt.savefig('yuka_table.png')
