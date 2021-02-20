@@ -71,7 +71,35 @@ def run_recognition(images,colors):
 
   #given a person, which sample to compare against  
   reference = [3,0,1,0,0,1]
+  num_persons = len(reference)
+
+  reference_vec = []
+  for i in range(num_persons):
+    reference_vec.append(images[i][reference[i]])
 
   app = FacePP(api_key=api_key, api_secret=api_secret)
   img_file = '/dataset/yuka_group.jpg'
   #detect all
+
+  fname_only = os.path.basename(img_file)
+  fname_noext = os.path.splitext(fname_only)[0]
+  img = app.image.get(image_file=img_file,return_attributes=['age'],calculate_all=1)
+
+  print('image', '=', img)
+  print('faces_count', '=', len(img.faces))
+
+  image = Image.open(img_file)
+  image = image.convert('RGB')
+  canvas = ImageDraw.Draw(image)
+
+  for (idx, face_) in enumerate(img.faces):
+    face_rect = face_.face_rectangle
+    x0=face_rect['left']
+    y0=face_rect['top']
+    w =face_rect['width']
+    h =face_rect['height']
+    #cut out a face
+    imcrop = image.crop((x0,y0,x0+w,y0+h))
+
+    #compare vs. imgs
+    pass
