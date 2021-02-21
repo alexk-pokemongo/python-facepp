@@ -51,6 +51,6 @@ for (idx, face_) in enumerate(img.faces):
   canvas.text(xy=[x0-10,y0-10],text='age={}'.format(age))
   
 
-out_file=fname_noext + '_out.png'
+out_file=fname_noext + '_detection.png'
 
 image.save(out_file)

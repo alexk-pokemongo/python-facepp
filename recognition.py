@@ -74,16 +74,22 @@ def compare_vs(app,img_file,reference_vec):
   num_persons = len(reference_vec)
   for i in range(num_persons):
     f = reference_vec[i] 
-    cmp_ = app.compare.get(image_file1=f,image_file2=img_file)
-    confidence = cmp_.confidence
-    thresholds = cmp_.thresholds
-    print("f=%s confidence=%d" % (f,confidence))
-    print('thresholds', '=', json.dumps(thresholds, indent=4))
+    try:
+      cmp_ = app.compare.get(image_file1=f,image_file2=img_file)
+      confidence = cmp_.confidence
+      thresholds = cmp_.thresholds
+      #print("f=%s confidence=%d" % (f,confidence))
+      #print('thresholds', '=', json.dumps(thresholds, indent=4))
+    except:
+      print("Unable to compare !")
+      confidence = 0
+
+    
     scores.append(confidence)
     pass
 
   ret = (idx,val) = argmax(scores)
-  print("Result for: %s Index= %d confidence = %f",(img_file,idx,val))
+  print("Result for: %s Index= %d confidence = %f" %(img_file,idx,val))
 
   return ret
 
@@ -133,14 +139,12 @@ def run_recognition(image_files,colors):
     #compare vs. imgs
     compare_result = compare_vs(app,compare_path,reference_vec)
     confidence = compare_result[1]
-    result_idx = compare_result[0]
-    color = colors[result_idx]
-
-    canvas.rectangle(xy=[x0,y0,x0+w,y0+h],outline=color,width=2)
-
-    canvas.text(xy=[x0-10,y0-10],text='age={}'.format(age),fill=color)
-
-    #highlight face
+    if(confidence > 66):
+      result_idx = compare_result[0]
+      color = colors[result_idx]
+      #highlight face
+      canvas.rectangle(xy=[x0,y0,x0+w,y0+h],outline=color,width=2)
+      canvas.text(xy=[x0-10,y0-10],text='age={}'.format(age),fill=color)
     pass
 
   out_file=fname_noext + '_recognition.png'
@@ -148,3 +152,7 @@ def run_recognition(image_files,colors):
 
 
 #toDo: main
+if __name__ == "__main__":
+  image_files,colors = build_annotation_table()
+  run_recognition(image_files,colors)
+  pass
