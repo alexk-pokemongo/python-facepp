@@ -122,6 +122,8 @@ def run_recognition(image_files,colors):
     y0=face_rect['top']
     w =face_rect['width']
     h =face_rect['height']
+
+    age=face_.age['value']
     #cut out a face
     imcrop = image.crop((x0,y0,x0+w,y0+h))
     #long term: convert to base64 ?
@@ -130,7 +132,19 @@ def run_recognition(image_files,colors):
     imcrop.save(compare_path)
     #compare vs. imgs
     compare_result = compare_vs(app,compare_path,reference_vec)
-    
+    confidence = compare_result[1]
+    result_idx = compare_result[0]
+    color = colors[result_idx]
+
+    canvas.rectangle(xy=[x0,y0,x0+w,y0+h],outline=color,width=2)
+
+    canvas.text(xy=[x0-10,y0-10],text='age={}'.format(age),fill=color)
 
     #highlight face
     pass
+
+  out_file=fname_noext + '_recognition.png'
+  image.save(out_file)
+
+
+#toDo: main
