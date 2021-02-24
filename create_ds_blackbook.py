@@ -11,6 +11,7 @@ api_key = 'o7rhF6OZEJDMYwWrAPjhT-fZ2g3iu1bP'
 api_secret = 'MazgWDEXoDC05CyJhvxHjXOratdvhi-H'
 
 def create_samples(app,dirname):
+
   files = glob2.glob(os.path.join(dirname, "*"))
   file_idx = 0
   out_dir = os.path.join(dirname,"samples")
@@ -21,7 +22,13 @@ def create_samples(app,dirname):
 
   for f in files:
     print("processing:"+f)
-    pil_image = Image.open(f)
+
+    try:
+      pil_image = Image.open(f)
+    except:
+      print("Unable to open:%s" % f)
+      continue
+
     pil_image = pil_image.convert('RGB')
     
     img = app.image.get(image_file=f)
@@ -51,7 +58,7 @@ dataset_dir = '/dataset/blackbook_processed'
 person_names = ['Balaba_Dmitrii_Vladimirovich','Kubrakov_Ivan_Vladimirovich']
 
 app = FacePP(api_key=api_key, api_secret=api_secret)
-import pdb; pdb.set_trace()
+
 for name in person_names:
   name_path = os.path.join(dataset_dir,name)
   print("Creating dataset for:%s",name_path)
