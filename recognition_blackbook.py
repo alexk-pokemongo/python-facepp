@@ -7,7 +7,7 @@ import os
 import json
 import glob2
 
-def get_max_nums(dataset_dir, person_names,blacklisted_persons=[],blacklist_imgs=[]):
+def get_max_nums(dataset_dir, person_names,blacklisted_persons=[]):
   num_persons = len(person_names)
   max_num_samples = 0
   for name in person_names:
@@ -19,9 +19,7 @@ def get_max_nums(dataset_dir, person_names,blacklisted_persons=[],blacklist_imgs
     samples = glob2.glob(os.path.join(full_dir,"*"))
     #glob files
     num_samples = len(samples)
-    for sample in samples:
-      if(sample in blacklist_imgs):
-        num_samples -= 1
+
     if(num_samples >max_num_samples):
       max_num_samples = num_samples
   return (num_persons,max_num_samples)
