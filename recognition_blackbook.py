@@ -46,21 +46,26 @@ def build_annotation_table():
     images.append([])
     image_files.append([])
     
-  files = glob2.glob(os.path.join(dataset_dir, "*.jpg")) 
 
-  for f in files:
-    base=os.path.basename(f)
-    person_id = -1
-    print("processing file:%s" % base)
-    #read image
-    img = Image.open(f)
-    person_id=base[0] #This only works as long as we only have <10 persons ToDo add regex
-    print("person_id=%s" % person_id)
-    if(person_id.isdigit()):
-      person_id = int(person_id) 
-      images[person_id].append(img)
-      image_files[person_id].append(f)
-      print("Appending person= %d sample = %d" %(person_id,len(images[person_id])-1))
+  for (person_idx,person) in enumerate(person_names):
+
+    person_dir = os.path.join(dataset_dir,person,"samples","*")
+
+    files = glob2.glob(person_dir) 
+
+    for f in files:
+      base=os.path.basename(f)
+      person_id = -1
+      print("processing file:%s" % base)
+      #read image
+      try:
+        img = Image.open(f)
+      except:
+        continue
+
+    images[person_idx].append(img)
+    image_files[person_idx].append(f)
+    print("Appending person= %d sample = %d" %(person_idx,len(images[person_idx])-1))
 
   idx=0
   for person in range(num_persons):
@@ -83,7 +88,7 @@ def build_annotation_table():
     #display color
     
   #save
-  plt.savefig('yuka_table.png')
+  plt.savefig('balaba_table.png')
   return image_files,colors
 
 def argmax(iterable):
