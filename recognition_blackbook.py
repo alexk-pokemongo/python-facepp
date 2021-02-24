@@ -7,11 +7,32 @@ import os
 import json
 import glob2
 
-def build_annotation_table():
-  num_persons = 6
-  max_num_samples = 8
-  dataset_dir = '/dataset/samples/combined/'
+def get_max_nums(dataset_dir, person_names,blacklisted_persons=[],blacklist_imgs=[]):
+  num_persons = len(person_names)
+  max_num_samples = 0
+  for name in person_names:
+    if(name in blacklisted_persons):
+      num_persons -= 1
+      continue
 
+    full_dir = os.path.join(dataset_dir,name)
+    samples = glob2.glob(os.path.join(full_dir,"*"))
+    #glob files
+    num_samples = len(samples)
+    for sample in samples:
+      if(sample in blacklist_imgs):
+        num_samples -= 1
+    if(num_samples >max_num_samples):
+      max_num_samples = num_samples
+  return (num_persons,max_num_samples)
+
+def build_annotation_table():
+  
+  max_num_samples = 8
+  dataset_dir = '/dataset/blackbook_processed'
+  person_names = ['Balaba_Dmitrii_Vladimirovich','Kubrakov_Ivan_Vladimirovich']
+  
+  num_persons = len(person_names)
   max_samples = max_num_samples+1
 
   plt.figure(figsize=(max_samples, num_persons))
