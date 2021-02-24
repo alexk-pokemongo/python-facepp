@@ -55,7 +55,6 @@ def build_annotation_table():
 
     for f in files:
       base=os.path.basename(f)
-      person_id = -1
       print("processing file:%s" % base)
       #read image
       try:
@@ -125,7 +124,7 @@ def run_recognition(image_files,colors):
   api_secret = 'MazgWDEXoDC05CyJhvxHjXOratdvhi-H'
 
   #given a person, which sample to compare against  
-  reference = [3,0,1,0,0,1]
+  reference = [0,0]
   num_persons = len(reference)
 
   reference_vec = []
