@@ -26,7 +26,6 @@ def get_max_nums(dataset_dir, person_names,blacklisted_persons=[]):
 
 def build_annotation_table():
   
-  max_num_samples = 8
   dataset_dir = '/dataset/blackbook_processed'
   person_names = ['Balaba_Dmitrii_Vladimirovich','Kubrakov_Ivan_Vladimirovich']
 
@@ -132,7 +131,7 @@ def run_recognition(image_files,colors):
     reference_vec.append(image_files[i][reference[i]])
 
   app = FacePP(api_key=api_key, api_secret=api_secret)
-  img_file = '/dataset/yuka_group.jpg'
+  img_file = '/dataset/blackbook_processed/group_test/balaba_and_kubrakov.jpg'
   #detect all
 
   fname_only = os.path.basename(img_file)
