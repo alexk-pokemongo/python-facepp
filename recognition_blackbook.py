@@ -59,11 +59,12 @@ def build_annotation_table():
       try:
         img = Image.open(f)
       except:
+        #print("unable to open:%s" % f)
         continue
 
-    images[person_idx].append(img)
-    image_files[person_idx].append(f)
-    print("Appending person= %d sample = %d" %(person_idx,len(images[person_idx])-1))
+      images[person_idx].append(img)
+      image_files[person_idx].append(f)
+      print("Appending person= %d sample = %d" %(person_idx,len(images[person_idx])-1))
 
   idx=0
   for person in range(num_persons):
@@ -103,8 +104,9 @@ def compare_vs(app,img_file,reference_vec):
       thresholds = cmp_.thresholds
       #print("f=%s confidence=%d" % (f,confidence))
       #print('thresholds', '=', json.dumps(thresholds, indent=4))
-    except:
+    except Exception as e:
       print("Unable to compare !")
+      print(e)
       confidence = 0
 
     
@@ -177,5 +179,6 @@ def run_recognition(image_files,colors):
 #toDo: main
 if __name__ == "__main__":
   image_files,colors = build_annotation_table()
+  import pdb;pdb.set_trace()
   run_recognition(image_files,colors)
   pass
