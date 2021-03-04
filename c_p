@@ -6,5 +6,6 @@ git add recognition.py
 git add Jupyter.ipynb
 git add recognition_blackbook.py
 git add create_ds_blackbook.py
+git add translit.py
 git commit -m "revise"
 git push
